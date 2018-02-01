@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: snclass
+# key: snclass
+# expand-env: ((yas-indent-line 'fixed))
+# --
+var $1 = Class.create();
+
+$1.prototype = {
+    initialize: function() {
+},
+
+    type: '$1'
+};
