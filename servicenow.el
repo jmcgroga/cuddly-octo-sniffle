@@ -25,4 +25,26 @@
 ;;;###autoload
 (define-derived-mode servicenow-mode js2-mode "ServiceNow")
 
+;;;###autoload
+(defgroup servicenow nil
+  "ServiceNow mode customizations."
+  :tag "ServiceNow"
+  :group 'convenience)
+
+;;;###autoload
+(defcustom servicenow-instances nil
+  "Instances allowed.
+List of instances that can use servicenow-mode."
+  :tag "Instances"
+  :group 'servicenow
+  :type '(repeat string))
+
+;;;###autoload
+(defcustom servicenow-instance nil
+  "Current instance.
+Current instance being used for servicenow-mode."
+  :tag "Instance"
+  :group 'servicenow
+  :type '(string))
+
 (provide 'servicenow-mode)

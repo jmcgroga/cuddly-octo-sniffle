@@ -10,19 +10,19 @@ from datetime import datetime
 PACKAGE_NAME="servicenow"
 AUTHOR="James McGrogan"
 AUTHOR_EMAIL="jmcgroga@gmail.com"
-REQUIRES="(js2-mode) (yasnippet)"
+REQUIRES="(js2-mode) (yasnippet) (request)"
 KEYWORDS="servicenow"
 URL="https://www.jamesmcgrogan.com/"
 COMMENTARY=""";;; This is a library of ServiceNow utility functions"""
 YEAR=datetime.now().strftime('%Y')
-VERSION="1.0.0"
+VERSION="0.0.1"
 DESCRIPTION="Servicenow utilities."
 SPLIT_VERSION=list(map(int, VERSION.split('.')))
 MTIME=int(datetime.now().replace(month=1,
-                                 day=SPLIT_VERSION[0],
-                                 hour=SPLIT_VERSION[1],
-                                 minute=SPLIT_VERSION[2],
-                                 second=0).strftime('%s'))
+                                 day=1,
+                                 hour=SPLIT_VERSION[0],
+                                 minute=SPLIT_VERSION[1],
+                                 second=SPLIT_VERSION[2]).strftime('%s'))
 
 def get_package_dir():
     return '%s-%s' % (PACKAGE_NAME, VERSION)
