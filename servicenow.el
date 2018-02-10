@@ -28,14 +28,18 @@
 ;;;###autoload
 (define-derived-mode servicenow-backgroundscriptoutputmode fundamental-mode "ServiceNowBackgroundScriptOutput"
   "major mode for ServiceNow background script output"
-  (setq font-lock-defaults '('(("\\(Javascript compiler exception:\\) \\(.*\\) \\((\\)\\(.*\\); \\(line [0-9]+\\)\\()\\) \\(in:\\)" . ((1 font-lock-doc-face)
+  (setq font-lock-defaults '('(("\\(Javascript compiler exception\\): \\(.*\\) \\((\\)\\(.*\\); \\(line [0-9]+\\)\\()\\) \\(in:\\)" . ((1 font-lock-doc-face)
                                                                                                                                        (2 font-lock-warning-face) ;; error
                                                                                                                                        (3 nil) ;; (
                                                                                                                                        (4 font-lock-function-name-face) ;; script
                                                                                                                                        (5 font-lock-comment-face) ;; line
                                                                                                                                        (6 nil) ;; )
                                                                                                                                        (7 font-lock-doc-face) ;; in:
-                                                                                                                                       ))))))
+                                                                                                                                       ))
+                               ("\\(errorEvaluator\\): \\(org.mozilla.javascript.EcmaError\\): \\(.*\\)" . ((1 font-lock-doc-face)
+                                                                                                            (2 font-lock-function-name-face)
+                                                                                                            (3 font-lock-warning-face)))))))
+                               
 
 
 ;;;###autoload
