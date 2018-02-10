@@ -26,6 +26,19 @@
 (define-derived-mode servicenow-mode js2-mode "ServiceNow")
 
 ;;;###autoload
+(define-derived-mode servicenow-backgroundscriptoutputmode fundamental-mode "ServiceNowBackgroundScriptOutput"
+  "major mode for ServiceNow background script output"
+  (setq font-lock-defaults '('(("\\(Javascript compiler exception:\\) \\(.*\\) \\((\\)\\(.*\\); \\(line [0-9]+\\)\\()\\) \\(in:\\)" . ((1 font-lock-doc-face)
+                                                                                                                                       (2 font-lock-warning-face) ;; error
+                                                                                                                                       (3 nil) ;; (
+                                                                                                                                       (4 font-lock-function-name-face) ;; script
+                                                                                                                                       (5 font-lock-comment-face) ;; line
+                                                                                                                                       (6 nil) ;; )
+                                                                                                                                       (7 font-lock-doc-face) ;; in:
+                                                                                                                                       ))))))
+
+
+;;;###autoload
 (defgroup servicenow nil
   "ServiceNow mode customizations."
   :tag "ServiceNow"
@@ -48,3 +61,4 @@ Current instance being used for servicenow-mode."
   :type '(string))
 
 (provide 'servicenow-mode)
+

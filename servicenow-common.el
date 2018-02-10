@@ -94,3 +94,15 @@
     (call-interactively 'servicenow-password))
   (servicenow--logout 'servicenow--login1))
 
+(defun servicenow--split-window-apply-function (bufname fcn &optional args)
+  (let ((curbuf (current-buffer))
+        (buf (generate-new-buffer bufname))
+        (win nil))
+    (with-current-buffer buf
+      (display-buffer (current-buffer))
+      (if (one-window-p)
+          (setq win (split-window-below))
+        (setq win (get-buffer-window)))
+      (with-selected-window win
+        (apply fcn args))
+      (switch-to-buffer curbuf))))
