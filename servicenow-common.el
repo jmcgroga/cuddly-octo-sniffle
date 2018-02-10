@@ -29,7 +29,7 @@
              (lambda (&key data &allow-other-keys)
                (funcall cb)))))
 
-(defun servicenow--login1 ()
+(defun servicenow--login1 (&optional cb)
   (request
    (format "https://%s/login.do" servicenow-instance)
    :type "POST"
@@ -40,9 +40,9 @@
    :success (cl-function
              (lambda (&key data &allow-other-keys)
                (setq servicenow--sysparm_ck (servicenow--get-sysparm_ck data))
-               (servicenow--check-login)))))
+               (servicenow--check-login cb)))))
 
-(defun servicenow--check-login ()
+(defun servicenow--check-login (&optional cb)
   (request
    (format "https://%s/sys.scripts.do" servicenow-instance)
    :type "POST"
@@ -58,7 +58,10 @@
                    (message "Not authorized to execute script!")
                  (let ((output (servicenow--get-script-output data)))
                    (if (string= (car output) "Hello World")
-                       (message "Success!")
+                       (progn
+                         (message "Success!")
+                         (if 'cb
+                             (funcall cb)))
                      (message "Login not successful!"))))))
    :error (cl-function (lambda (&rest args &key error-thrown &allow-other-keys)
                          (message "Error: %S" error-thrown)))))
@@ -84,7 +87,7 @@
   (base64-decode-string password))
 
 ;;;###autoload
-(defun servicenow-login ()
+(defun servicenow-login (&optional cb)
   (interactive)
   (unless servicenow-instance
     (call-interactively 'servicenow-instance))
@@ -92,7 +95,7 @@
     (call-interactively 'servicenow-username))
   (unless servicenow--password
     (call-interactively 'servicenow-password))
-  (servicenow--logout 'servicenow--login1))
+  (servicenow--logout `(lambda () (servicenow--login1 ,cb))))
 
 (defun servicenow--split-window-apply-function (bufname fcn &optional args)
   (let ((curbuf (current-buffer))
